@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Add-Type -AssemblyName System.Drawing; $b=[System.Drawing.Bitmap]::FromFile\\(\"C:\\\\Users\\\\Trevor\\\\Documents\\\\projects\\\\dogpound-media\\\\retro_monitor.png\"\\); \"$\\($b.Width\\)x$\\($b.Height\\) fmt=$\\($b.PixelFormat\\)\"; $p=$b.GetPixel\\(512,380\\); \"center: A=$\\($p.A\\) R=$\\($p.R\\)\"; $b.Dispose\\(\\))"
+    ]
+  }
+}
