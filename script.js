@@ -16,7 +16,7 @@ function noise(canvas, w, h) {
   };
 }
 
-const drawGrain = noise(document.getElementById('grain'), 200, 150);
+const drawGrain = noise(document.getElementById('grain'), 480, 360);
 const staticEl = document.getElementById('static');
 const drawStatic = noise(staticEl, 480, 360);
 

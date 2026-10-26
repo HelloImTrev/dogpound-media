@@ -155,13 +155,13 @@ p { font-size: calc(2 * var(--u)); line-height: 1.6; max-width: calc(60 * var(--
 .flicker { background: rgba(255, 255, 255, .015); animation: flicker .25s steps(2) infinite; }
 @keyframes flicker { 50% { opacity: .5; } }
 
-/* Portrait phones: stretch the bezel (9-slice of the PNG) so the screen fills the display */
+/* Rotate prompt: hidden except on phones held upright */
+.rotate { display: none; }
+
+/* Stretched bezel (9-slice of the PNG) so the screen fills the display:
+   portrait tablets / narrow windows, and landscape phones */
 @media (max-aspect-ratio: 1/1) {
   .tv {
-    --u: 2.4cqw;
-    --bx: 5cqw;
-    --bt: 5cqw;
-    --bb: 9cqw;
     width: 100vw;
     height: 100vh;
     height: 100dvh;
@@ -188,11 +188,9 @@ p { font-size: calc(2 * var(--u)); line-height: 1.6; max-width: calc(60 * var(--
     bottom: var(--bb);
     border-radius: calc(2 * var(--u));
   }
-  .content { padding: calc(1.6 * var(--u)) calc(1.4 * var(--u)); }
-  .nav { gap: calc(1 * var(--u)); letter-spacing: 0; }
+  .content { display: flex; flex-direction: column; padding: calc(1.6 * var(--u)) calc(1.4 * var(--u)); }
+  .nav { flex: none; gap: calc(1 * var(--u)); letter-spacing: 0; }
   .nav a { padding: calc(.3 * var(--u)) calc(.5 * var(--u)); }
-  .content { display: flex; flex-direction: column; }
-  .nav { flex: none; }
   .page.active {
     flex: 1;
     display: flex;
@@ -201,12 +199,61 @@ p { font-size: calc(2 * var(--u)); line-height: 1.6; max-width: calc(60 * var(--
     justify-content: center;
     padding-top: 0;
   }
-  .grid { grid-template-columns: 1fr; width: 100%; }
-  .card { aspect-ratio: 5 / 2; }
-  .logo { width: 150%; margin: -4% -25% -14%; }
   .btn { margin-top: calc(1.5 * var(--u)); }
 }
 
+@media (max-aspect-ratio: 1/1) {
+  .tv { --u: 2.4cqw; --bx: 5cqw; --bt: 5cqw; --bb: 9cqw; }
+  .grid { grid-template-columns: 1fr; width: 100%; }
+  .card { aspect-ratio: 5 / 2; }
+  .logo { width: 150%; margin: -4% -25% -14%; }
+}
+
+/* Landscape phones: undistorted 4:3 monitor, text scaled up to stay readable */
+@media (orientation: landscape) and (max-height: 500px) and (pointer: coarse) {
+  .tv { --u: 1.5cqw; }
+  .content { padding: calc(1.2 * var(--u)) calc(2 * var(--u)); }
+  .page { padding-top: calc(.8 * var(--u)); }
+  .btn { margin-top: calc(1.2 * var(--u)); }
+}
+
+/* Phones held upright: ask for landscape */
+@media (orientation: portrait) and (max-width: 600px) and (pointer: coarse) {
+  .tv { display: none; }
+  .rotate {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6vw;
+    padding: 8vw;
+    text-align: center;
+    background: #0b0b0b radial-gradient(circle at 50% 40%, #2a2623, #0b0b0b 75%);
+    color: var(--ink);
+    font-family: "Courier New", Courier, monospace;
+    text-transform: uppercase;
+    letter-spacing: .5vw;
+    font-size: 4.4vw;
+    text-shadow: .4vw 0 rgba(255, 0, 0, .55), -.4vw 0 rgba(0, 200, 255, .45);
+  }
+  .rotate i {
+    display: block;
+    width: 14vw;
+    height: 24vw;
+    border: .9vw solid var(--ink);
+    border-radius: 2.5vw;
+    animation: turn 2.4s ease-in-out infinite;
+  }
+  .rotate b { color: var(--red); font-size: 6vw; }
+}
+@keyframes turn {
+  0%, 20% { transform: rotate(0); }
+  60%, 100% { transform: rotate(-90deg); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .screen, .flicker { animation: none; }
+  .screen, .flicker, .rotate i { animation: none; }
 }
