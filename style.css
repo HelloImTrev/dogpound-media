@@ -85,16 +85,19 @@ body { display: grid; place-items: center; }
 .nav a:hover, .nav a.active { background: var(--red); color: #000; text-shadow: none; }
 
 .page { display: none; padding-top: calc(2 * var(--u)); text-align: center; }
-.page:target, .page.active { display: block; }
+.page.active { display: block; }
 
 .logo {
   display: block;
   width: 110%;
   max-width: none;
+  pointer-events: none;
   margin: -2% -5% -11%;
   filter: drop-shadow(0 0 calc(.3 * var(--u)) rgba(255, 255, 255, .55));
 }
 .btn {
+  position: relative;
+  z-index: 1;
   display: inline-block;
   margin-top: calc(2.5 * var(--u));
   color: var(--ink);
@@ -190,7 +193,7 @@ p { font-size: calc(2 * var(--u)); line-height: 1.6; max-width: calc(60 * var(--
   .nav a { padding: calc(.3 * var(--u)) calc(.5 * var(--u)); }
   .content { display: flex; flex-direction: column; }
   .nav { flex: none; }
-  .page:target, .page.active {
+  .page.active {
     flex: 1;
     display: flex;
     flex-direction: column;
