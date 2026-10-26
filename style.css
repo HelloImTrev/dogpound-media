@@ -11,12 +11,13 @@ html, body {
   overflow: hidden;
 }
 
-body { display: grid; place-items: center; }
+body { display: grid; place-items: center; height: 100vh; height: 100dvh; }
 
 /* 4:3 monitor, as large as fits the window */
 .tv {
   position: relative;
   width: min(100vw, calc(100vh * 4 / 3));
+  width: min(100vw, calc(100dvh * 4 / 3));
   aspect-ratio: 4 / 3;
   container-type: size;
   --u: 1cqw;
