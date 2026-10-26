@@ -76,7 +76,6 @@ body { display: grid; place-items: center; }
   text-transform: uppercase;
   letter-spacing: calc(.2 * var(--u));
   padding-bottom: calc(1.2 * var(--u));
-  border-bottom: calc(.2 * var(--u)) dashed rgba(255, 255, 255, .25);
 }
 .nav a {
   color: var(--ink);
