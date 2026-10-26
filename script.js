@@ -58,4 +58,5 @@ links.forEach(a => a.addEventListener('click', e => {
 }));
 
 show(location.hash.slice(1) || 'home', false);
+addEventListener('load', () => { content.scrollTop = 0; });
 setTimeout(() => burst(600), 700);
