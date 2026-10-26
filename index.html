@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dog Pound Media</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="tv" id="tv">
+    <div class="screen" id="screen">
+      <div class="content" id="content">
+        <nav class="nav">
+          <a href="#home" data-page="home">Home</a>
+          <a href="#work" data-page="work">Work</a>
+          <a href="#about" data-page="about">About</a>
+          <a href="#contact" data-page="contact">Contact</a>
+        </nav>
+
+        <section class="page" id="home">
+          <img class="logo" src="logo.png" alt="Dog Pound Media">
+          <a class="btn" href="#work" data-page="work">&gt; See our work</a>
+        </section>
+
+        <section class="page" id="work">
+          <h2>Our Work</h2>
+          <div class="grid">
+            <div class="card"><span>CH 01</span>Project One</div>
+            <div class="card"><span>CH 02</span>Project Two</div>
+            <div class="card"><span>CH 03</span>Project Three</div>
+            <div class="card"><span>CH 04</span>Project Four</div>
+          </div>
+        </section>
+
+        <section class="page" id="about">
+          <h2>About</h2>
+          <p>Placeholder copy about Dog Pound Media. Tell the story of the pack here.</p>
+        </section>
+
+        <section class="page" id="contact">
+          <h2>Contact</h2>
+          <p>hello@dogpoundmedia.com</p>
+        </section>
+      </div>
+
+      <canvas class="fx grain" id="grain"></canvas>
+      <canvas class="fx static" id="static"></canvas>
+      <div class="fx scanlines"></div>
+      <div class="fx vignette"></div>
+      <div class="fx glare"></div>
+      <div class="fx flicker"></div>
+    </div>
+
+    <img class="frame" src="retro_monitor.png" alt="" draggable="false">
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

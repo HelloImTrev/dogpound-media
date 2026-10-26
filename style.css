@@ -1,0 +1,162 @@
+:root {
+  --red: #ff1a1a;
+  --ink: #f2ece4;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: #0b0b0b radial-gradient(circle at 50% 40%, #2a2623, #0b0b0b 75%);
+  overflow: hidden;
+}
+
+body { display: grid; place-items: center; }
+
+/* 4:3 monitor, as large as fits the window */
+.tv {
+  position: relative;
+  width: min(100vw, calc(100vh * 4 / 3));
+  aspect-ratio: 4 / 3;
+  container-type: size;
+  filter: drop-shadow(0 2cqw 3cqw rgba(0, 0, 0, .8));
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Region behind the PNG's transparent window */
+.screen {
+  position: absolute;
+  left: 9.6%;
+  top: 8.6%;
+  width: 81.2%;
+  height: 80.6%;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 4cqw / 4cqw;
+  background: radial-gradient(ellipse at 50% 45%, #5a5a5a 0%, #2b2b2b 55%, #101010 100%);
+  color: var(--ink);
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.7cqw;
+  animation: poweron 1.1s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+@keyframes poweron {
+  0%   { transform: scale(1, .005); filter: brightness(8); }
+  40%  { transform: scale(1, .005); filter: brightness(8); }
+  70%  { transform: scale(1, 1);    filter: brightness(2.5); }
+  100% { transform: scale(1, 1);    filter: brightness(1); }
+}
+
+/* Scrollable content, slightly blurred + RGB-split like a CRT */
+.content {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  padding: 2.5cqw 3.5cqw;
+  text-shadow: .12cqw 0 rgba(255, 0, 0, .55), -.12cqw 0 rgba(0, 200, 255, .45);
+  scrollbar-width: thin;
+  scrollbar-color: var(--red) transparent;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 3cqw;
+  text-transform: uppercase;
+  letter-spacing: .2cqw;
+  padding-bottom: 1.2cqw;
+  border-bottom: .2cqw dashed rgba(255, 255, 255, .25);
+}
+.nav a {
+  color: var(--ink);
+  text-decoration: none;
+  padding: .3cqw .8cqw;
+}
+.nav a:hover, .nav a.active { background: var(--red); color: #000; text-shadow: none; }
+
+.page { display: none; padding-top: 2cqw; text-align: center; }
+.page:target, .page.active { display: block; }
+
+.logo {
+  display: block;
+  width: 110%;
+  max-width: none;
+  margin: -2% -5% -11%;
+  filter: drop-shadow(0 0 .3cqw rgba(255, 255, 255, .55));
+}
+.btn {
+  display: inline-block;
+  margin-top: 2.5cqw;
+  color: var(--ink);
+  border: .25cqw solid var(--ink);
+  padding: .8cqw 2cqw;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.btn:hover { background: var(--ink); color: #000; text-shadow: none; }
+
+h2 {
+  font-size: 3.4cqw;
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: .5cqw;
+  margin-bottom: 2cqw;
+}
+p { font-size: 2cqw; line-height: 1.6; max-width: 60cqw; margin: 0 auto; }
+
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2cqw; }
+.card {
+  aspect-ratio: 16 / 9;
+  display: grid;
+  place-content: center;
+  gap: .6cqw;
+  border: .25cqw solid rgba(255, 255, 255, .5);
+  background: rgba(0, 0, 0, .35);
+  font-size: 2.2cqw;
+}
+.card span { color: var(--red); font-size: 1.5cqw; }
+.card:hover { border-color: var(--red); }
+
+/* ---- CRT overlays ---- */
+.fx { position: absolute; inset: 0; pointer-events: none; }
+
+.grain { width: 100%; height: 100%; image-rendering: pixelated; opacity: .05; mix-blend-mode: screen; }
+
+.static { width: 100%; height: 100%; image-rendering: pixelated; opacity: 0; transition: opacity .15s; }
+.static.on { opacity: .95; transition: none; }
+
+.scanlines {
+  background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 2px, rgba(0, 0, 0, .28) 3px, rgba(0, 0, 0, 0) 4px);
+}
+
+.vignette {
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, .65) 100%);
+  box-shadow: inset 0 0 4cqw 1cqw rgba(0, 0, 0, .8);
+}
+
+.glare {
+  background:
+    radial-gradient(ellipse 60% 30% at 28% 8%, rgba(255, 255, 255, .13), rgba(255, 255, 255, 0) 70%);
+}
+
+.flicker { background: rgba(255, 255, 255, .015); animation: flicker .25s steps(2) infinite; }
+@keyframes flicker { 50% { opacity: .5; } }
+
+/* Narrow/tall screens: let the TV fill the width, keep it readable */
+@media (max-aspect-ratio: 1/1) {
+  .tv { width: 100vw; }
+  .screen { font-size: 2.3cqw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen, .flicker { animation: none; }
+}
